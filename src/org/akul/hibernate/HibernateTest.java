@@ -64,6 +64,13 @@ public class HibernateTest {
 		session.beginTransaction();
 		//saving the object
 		//session.persist(user); //instead of session.save() we use another method persist coz of cascading
+		for(int i=0;i<10;i++){
+			UserDetails usermul =new UserDetails();
+			usermul.setUserName("user "+i);
+			usermul.setDescription("user "+i+"description");
+			usermul.getListOfAddresses().add(addr);
+			session.save(usermul);
+		}
 		session.save(user);
 		session.save(vehicle);
 		session.save(cruiser);

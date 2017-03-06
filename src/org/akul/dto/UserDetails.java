@@ -91,7 +91,7 @@ public class UserDetails {
 	}
 	@Column (name="USER_NAME")
 	public String getUserName() {
-		return userName + "from getter";
+		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
