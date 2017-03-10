@@ -32,6 +32,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -45,6 +46,7 @@ import org.hibernate.annotations.Type;
 
 //name property of annotation @Entity creates table with name property as against the default case value of class name
 @Entity
+@NamedQuery(name="UserDetails.byId",query="from UserDetails where userId=?")
 @Table (name="USER_DETAILS")
 public class UserDetails {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO) //generates this aurrogate key automatically
