@@ -18,6 +18,7 @@ import java.util.HashSet;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -39,6 +40,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -46,6 +49,8 @@ import org.hibernate.annotations.Type;
 
 //name property of annotation @Entity creates table with name property as against the default case value of class name
 @Entity
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)//configuring the second level cache type
 @NamedQuery(name="UserDetails.byId",query="from UserDetails where userId=?")
 @Table (name="USER_DETAILS")
 public class UserDetails {

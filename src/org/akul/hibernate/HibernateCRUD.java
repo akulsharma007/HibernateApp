@@ -8,6 +8,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 public class HibernateCRUD {
@@ -53,9 +56,21 @@ public class HibernateCRUD {
 		//query.setMaxResults(2);//and display only 2 records
 		//Query query = session.getNamedQuery("UserDetails.byId");//in case of Namedquery
 		//usig criteria instead of HQL
-		Criteria criteria = session.createCriteria(UserDetails.class);
-		criteria.add(Restrictions.eqOrIsNull("userName", "user 5"))
-				.add(Restrictions.gt("userId", 3));//this is an and query
+		UserDetails exampleUser = new UserDetails();
+		exampleUser.setUserId(5);
+		exampleUser.setUserName("user 5");
+		
+		Example example= Example.create(exampleUser);
+		
+		Criteria criteria = session.createCriteria(UserDetails.class)
+							.add(example);
+							//.setProjection(Projections.count("userId"))
+							//.addOrder(Order.desc("userId"));
+		//criteria.add(Restrictions.eqOrIsNull("userName", "user 5"))
+		//		.add(Restrictions.gt("userId", 3));//this is an and query
+							
+		
+		
 		List<UserDetails> users = (List<UserDetails>) criteria.list();
 		//List<String> usernames = (List<String>) query.list();
 		session.getTransaction().commit();
